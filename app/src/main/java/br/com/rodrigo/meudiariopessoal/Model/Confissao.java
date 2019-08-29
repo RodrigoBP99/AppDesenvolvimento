@@ -1,8 +1,6 @@
 package br.com.rodrigo.meudiariopessoal.Model;
 
-import android.arch.persistence.room.Entity;
 
-@Entity(tableName = "diarios")
 public class Confissao {
 
     private int id;
