@@ -24,6 +24,7 @@ public class ContainerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
+        getSupportActionBar().setElevation(0);
 
 
         RecyclerView recyclerView = findViewById(R.id.recycleViewConfissao);
@@ -34,7 +35,6 @@ public class ContainerActivity extends AppCompatActivity {
         int dia = agora.get(Calendar.DAY_OF_MONTH);
         int mes = 1 + agora.get(Calendar.MONTH);
         int ano = agora.get(Calendar.YEAR);
-
 
         int hora = agora.get(Calendar.HOUR_OF_DAY);
         int minuto = agora.get(Calendar.MINUTE);
