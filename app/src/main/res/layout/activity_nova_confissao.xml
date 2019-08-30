@@ -22,10 +22,11 @@
 
         <EditText
             android:id="@+id/editTextConfissoa"
-            android:hint="Confissão"
-            android:textAlignment="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Confissão"
+            android:inputType="textLongMessage|textCapSentences"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/buttonAdicionarConfissao"

@@ -1,17 +1,24 @@
 package br.com.rodrigo.meudiariopessoal.Activity;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import br.com.rodrigo.meudiariopessoal.Adapter.ConfissaoAdapter;
+import br.com.rodrigo.meudiariopessoal.DAO.AppDatabase;
 import br.com.rodrigo.meudiariopessoal.Model.Confissao;
 import br.com.rodrigo.meudiariopessoal.R;
 
@@ -26,36 +33,10 @@ public class ContainerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_container);
         getSupportActionBar().setElevation(0);
 
-
-        RecyclerView recyclerView = findViewById(R.id.recycleViewConfissao);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        Calendar agora = Calendar.getInstance();
-
-        int dia = agora.get(Calendar.DAY_OF_MONTH);
-        int mes = 1 + agora.get(Calendar.MONTH);
-        int ano = agora.get(Calendar.YEAR);
-
-        int hora = agora.get(Calendar.HOUR_OF_DAY);
-        int minuto = agora.get(Calendar.MINUTE);
-
-        String data = dia + "/" + mes + "/" + ano;
-        String horario = hora + ":" + minuto;
-
-        Confissao confissao = new Confissao();
-        confissao.setTexto("qualquer coisa ali e aqui");
-        confissao.setData(data);
-        confissao.setHora(horario);
-
-        confissaos.add(confissao);
-
-        confissaoAdapter = new ConfissaoAdapter(confissaos, this);
-        recyclerView.setAdapter(confissaoAdapter);
-
-        novoContainer();
+        novaConfissao();
     }
 
-    private void novoContainer(){
+    private void novaConfissao(){
         FloatingActionButton floatingActionButtonNovaConfissao;
         floatingActionButtonNovaConfissao = findViewById(R.id.floatButtonNovaConfissao);
         floatingActionButtonNovaConfissao.setOnClickListener(new View.OnClickListener() {
@@ -64,5 +45,46 @@ public class ContainerActivity extends AppCompatActivity {
                 startActivity(new Intent(ContainerActivity.this, NovaConfissao.class));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_container, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_logOut:
+                logOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOut(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ContainerActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public void onResume() {
+        RecyclerView recyclerView = findViewById(R.id.recycleViewConfissao);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ContainerActivity.this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "confissaoDataBase")
+                .allowMainThreadQueries()
+                .build();
+        confissaos = (ArrayList<Confissao>) appDatabase.confissaoDao().getAll();
+
+        confissaoAdapter = new ConfissaoAdapter(confissaos, this);
+        recyclerView.setAdapter(confissaoAdapter);
+        super.onResume();
     }
 }

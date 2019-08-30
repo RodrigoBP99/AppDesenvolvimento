@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,10 +36,28 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setElevation(0);
 
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextSenha = findViewById(R.id.editTextSenha);
+        findViewByIds();
 
         trocarTela();
+    }
+
+    private void findViewByIds() {
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextSenha = findViewById(R.id.editTextSenha);
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificarLogin();
+    }
+
+    private void verificarLogin(){
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(MainActivity.this, ContainerActivity.class));
+            finish();
+        }
     }
 
     private void trocarTela(){
@@ -67,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     User user = new User();
                     user.setEmail(email);
                     user.setSenha(senha);
-                    verificarLogin(v);
+                    confirmarLogin(v);
                 }
 
 
@@ -75,17 +92,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void verificarLogin(final View v){
-        firebaseAuth = FirebaseAuth.getInstance();
+    private void confirmarLogin(final View v){
         firebaseAuth.signInWithEmailAndPassword(editTextEmail.getText().toString(), editTextSenha.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            if (firebaseAuth.getCurrentUser() != null) {
-                                startActivity(new Intent(MainActivity.this, ContainerActivity.class));
-                                finish();
-                            }
+                            verificarLogin();
                         } else {
                             String excecao = "";
                             try {
@@ -103,4 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

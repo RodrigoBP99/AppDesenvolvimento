@@ -32,6 +32,7 @@ dependencies {
     //orm room
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    androidTestImplementation 'androidx.room:room-testing:2.1.0'
 
 
     testImplementation 'junit:junit:4.12'
