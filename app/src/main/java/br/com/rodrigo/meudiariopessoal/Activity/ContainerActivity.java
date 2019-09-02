@@ -81,8 +81,11 @@ public class ContainerActivity extends AppCompatActivity {
         AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "confissaoDataBase")
                 .allowMainThreadQueries()
                 .build();
-        confissaos = (ArrayList<Confissao>) appDatabase.confissaoDao().getAll();
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String userEmail = firebaseAuth.getCurrentUser().getEmail();
+
+        confissaos = (ArrayList<Confissao>) appDatabase.confissaoDao().getConfissao(userEmail);
         confissaoAdapter = new ConfissaoAdapter(confissaos, this);
         recyclerView.setAdapter(confissaoAdapter);
         super.onResume();

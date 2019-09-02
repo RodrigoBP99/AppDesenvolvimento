@@ -14,6 +14,9 @@ public interface ConfissaoDao {
     @Query("SELECT * FROM confissao")
     List<Confissao> getAll();
 
+    @Query("SELECT * FROM confissao WHERE userID=:userID")
+    List<Confissao> getConfissao(String userID);
+
     @Insert
     void insertConfissao(Confissao confissao);
 

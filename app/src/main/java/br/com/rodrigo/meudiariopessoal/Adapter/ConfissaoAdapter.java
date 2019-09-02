@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.rodrigo.meudiariopessoal.Activity.ContainerActivity;
 import br.com.rodrigo.meudiariopessoal.DAO.AppDatabase;
 import br.com.rodrigo.meudiariopessoal.Model.Confissao;
 import br.com.rodrigo.meudiariopessoal.R;

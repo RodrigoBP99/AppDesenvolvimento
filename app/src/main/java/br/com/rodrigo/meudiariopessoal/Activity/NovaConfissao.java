@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Calendar;
 
 import br.com.rodrigo.meudiariopessoal.DAO.AppDatabase;
@@ -26,25 +28,21 @@ public class NovaConfissao extends AppCompatActivity {
 
         editTextConfissoa = findViewById(R.id.editTextConfissoa);
 
-
-        Calendar agora = Calendar.getInstance();
-
-        int dia = agora.get(Calendar.DAY_OF_MONTH);
-        int mes = 1 + agora.get(Calendar.MONTH);
-        int ano = agora.get(Calendar.YEAR);
-
-        int hora = agora.get(Calendar.HOUR_OF_DAY);
-        int minuto = agora.get(Calendar.MINUTE);
-
-        final String data = dia + "/" + mes + "/" + ano;
-        final String horario = hora + ":" + minuto;
         buttonSalvarConfissoa = findViewById(R.id.buttonAdicionarConfissao);
         buttonSalvarConfissoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String texto = editTextConfissoa.getText().toString();
+
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+                String userId = firebaseAuth.getCurrentUser().getEmail();
+
+                String data = pegarData();
+                String hora = pegarHora();
+
                 if (!texto.isEmpty()){
-                    Confissao confissao = new Confissao(texto, data, horario);
+                    Confissao confissao = new Confissao(texto, data, hora, userId);
                     salvarConfissao(confissao);
                     finish();
                 } else {
@@ -59,5 +57,24 @@ public class NovaConfissao extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
         appDatabase.confissaoDao().insertConfissao(confissao);
+    }
+
+    private String pegarData(){
+        Calendar agora = Calendar.getInstance();
+
+        int dia = agora.get(Calendar.DAY_OF_MONTH);
+        int mes = 1 + agora.get(Calendar.MONTH);
+        int ano = agora.get(Calendar.YEAR);
+        String data = String.format("%02d", dia) + "/" + String.format("%02d", mes) + "/" + ano;
+        return data;
+    }
+
+    private String pegarHora(){
+        Calendar agora = Calendar.getInstance();
+
+        int hora = agora.get(Calendar.HOUR_OF_DAY);
+        int minuto = agora.get(Calendar.MINUTE);
+        String horario = String.format("%02d", hora) + ":" + String.format("%02d", minuto);
+        return horario;
     }
 }
