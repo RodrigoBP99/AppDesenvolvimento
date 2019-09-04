@@ -44,7 +44,6 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         getSupportActionBar().setTitle("Cadastro");
-        getSupportActionBar().setElevation(0);
         firebaseAuth = FirebaseAuth.getInstance();
 
         findViewByIds();

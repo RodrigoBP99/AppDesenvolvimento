@@ -1,6 +1,5 @@
 package br.com.rodrigo.meudiariopessoal.Activity;
 
-import android.arch.persistence.room.Room;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,6 @@ public class NovaConfissao extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_confissao);
-        getSupportActionBar().setElevation(0);
         getSupportActionBar().setTitle("Nova Confissão");
 
         editTextConfissoa = findViewById(R.id.editTextConfissoa);
