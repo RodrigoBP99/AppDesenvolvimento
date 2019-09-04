@@ -23,7 +23,4 @@ public interface ConfissaoDao {
 
     @Delete
     void delete(Confissao confissao);
-
-    @Update
-    void update(Confissao confissao);
 }
