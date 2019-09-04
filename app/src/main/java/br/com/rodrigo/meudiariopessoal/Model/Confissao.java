@@ -13,7 +13,7 @@ public class Confissao {
     private int id;
 
 
-    @ColumnInfo(name = "confissoa_texto")
+    @ColumnInfo(name = "confissao_texto")
     private String texto;
 
 
@@ -21,26 +21,11 @@ public class Confissao {
     private String data;
 
 
-    @ColumnInfo(name = "confissoa_hora")
+    @ColumnInfo(name = "confissao_hora")
     private String hora;
 
+    @ColumnInfo(name = "confissao_userID")
     private String userID;
-
-    public Confissao(int id, String texto, String data, String hora, String userID) {
-        this.id = id;
-        this.texto = texto;
-        this.data = data;
-        this.hora = hora;
-        this.userID = userID;
-    }
-
-    @Ignore
-    public Confissao(String texto, String data, String hora, String userID){
-        this.texto = texto;
-        this.data = data;
-        this.hora = hora;
-        this.userID = userID;
-    }
 
     public int getId() {
         return id;

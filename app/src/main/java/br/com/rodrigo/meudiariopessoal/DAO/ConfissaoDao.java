@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface ConfissaoDao {
     @Query("SELECT * FROM confissao")
     List<Confissao> getAll();
 
-    @Query("SELECT * FROM confissao WHERE userID=:userID")
+    @Query("SELECT * FROM confissao WHERE confissao_userID=:userID")
     List<Confissao> getConfissao(String userID);
 
     @Insert
@@ -22,4 +23,7 @@ public interface ConfissaoDao {
 
     @Delete
     void delete(Confissao confissao);
+
+    @Update
+    void update(Confissao confissao);
 }

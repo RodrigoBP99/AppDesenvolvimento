@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.NovaConfissao"></activity>
+        <activity android:name=".dsfsdfsdf.Main2Activity" />
+        <activity android:name=".Activity.NovaConfissao" />
         <activity android:name=".Activity.ContainerActivity" />
         <activity android:name=".Activity.CadastroActivity" />
         <activity android:name=".Activity.MainActivity">

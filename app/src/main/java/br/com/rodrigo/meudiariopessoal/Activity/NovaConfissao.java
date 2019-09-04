@@ -25,24 +25,31 @@ public class NovaConfissao extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_confissao);
         getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("Nova Confissão");
 
         editTextConfissoa = findViewById(R.id.editTextConfissoa);
 
         buttonSalvarConfissoa = findViewById(R.id.buttonAdicionarConfissao);
+        SalvarConfissao();
+    }
+
+    private void SalvarConfissao() {
         buttonSalvarConfissoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String texto = editTextConfissoa.getText().toString();
-
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
                 String userId = firebaseAuth.getCurrentUser().getEmail();
 
                 String data = pegarData();
                 String hora = pegarHora();
 
                 if (!texto.isEmpty()){
-                    Confissao confissao = new Confissao(texto, data, hora, userId);
+                    Confissao confissao = new Confissao();
+                    confissao.setTexto(texto);
+                    confissao.setData(data);
+                    confissao.setHora(hora);
+                    confissao.setUserID(userId);
                     salvarConfissao(confissao);
                     finish();
                 } else {
@@ -53,9 +60,7 @@ public class NovaConfissao extends AppCompatActivity {
     }
 
     private void salvarConfissao(Confissao confissao){
-        AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "confissaoDataBase")
-                .allowMainThreadQueries()
-                .build();
+        AppDatabase appDatabase = AppDatabase.getInstance(NovaConfissao.this);
         appDatabase.confissaoDao().insertConfissao(confissao);
     }
 

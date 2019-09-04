@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -23,10 +23,9 @@
         <EditText
             android:id="@+id/editTextConfissoa"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confissão"
+            android:layout_height="500dp"
             android:inputType="textLongMessage|textCapSentences"
-            android:textAlignment="center" />
+            />
 
         <Button
             android:id="@+id/buttonAdicionarConfissao"

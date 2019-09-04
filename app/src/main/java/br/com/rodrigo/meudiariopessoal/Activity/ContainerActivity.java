@@ -78,9 +78,7 @@ public class ContainerActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "confissaoDataBase")
-                .allowMainThreadQueries()
-                .build();
+        AppDatabase appDatabase = AppDatabase.getInstance(ContainerActivity.this);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
