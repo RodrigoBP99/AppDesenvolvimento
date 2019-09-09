@@ -47,9 +47,12 @@ public class CadastroActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         findViewByIds();
+        currentUser();
+
         userCadastro();
 
     }
+
 
     private void findViewByIds() {
         editTextCadastoEmail = findViewById(R.id.editTextEmailCadastro);
@@ -59,6 +62,15 @@ public class CadastroActivity extends AppCompatActivity {
 
         buttonConfirmarCadastro = findViewById(R.id.buttonConfirmaCadastro);
 
+    }
+
+    private void currentUser(){
+        if (firebaseAuth.getCurrentUser() != null){
+            editTextCadastoEmail.setText(firebaseAuth.getCurrentUser().getEmail());
+            editTextCadastroNome.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        } else {
+            Toast.makeText(this, "Usuario nulo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void userCadastro(){

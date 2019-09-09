@@ -80,7 +80,7 @@ public class ContainerActivity extends AppCompatActivity {
         AppDatabase appDatabase = AppDatabase.getInstance(ContainerActivity.this);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        String userEmail = firebaseAuth.getCurrentUser().getEmail();
+        String userEmail = firebaseAuth.getCurrentUser().getDisplayName();
 
         confissaos = (ArrayList<Confissao>) appDatabase.confissaoDao().getConfissao(userEmail);
         confissaoAdapter = new ConfissaoAdapter(confissaos, this);

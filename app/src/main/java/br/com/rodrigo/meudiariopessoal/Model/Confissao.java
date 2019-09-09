@@ -3,6 +3,7 @@ package br.com.rodrigo.meudiariopessoal.Model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "confissao")
@@ -24,7 +25,24 @@ public class Confissao {
     private String hora;
 
     @ColumnInfo(name = "confissao_userID")
-    private String userID;
+    private String userName;
+
+
+    public Confissao(int id, String texto, String data, String hora, String userName) {
+        this.id = id;
+        this.texto = texto;
+        this.data = data;
+        this.hora = hora;
+        this.userName = userName;
+    }
+
+    @Ignore
+    public Confissao(String texto, String data, String hora, String userName) {
+        this.texto = texto;
+        this.data = data;
+        this.hora = hora;
+        this.userName = userName;
+    }
 
     public int getId() {
         return id;
@@ -58,11 +76,11 @@ public class Confissao {
         this.hora = hora;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -86,6 +86,11 @@
             android:layout_marginBottom="8dp"
             android:background="#222222" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 

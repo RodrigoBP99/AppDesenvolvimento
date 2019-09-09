@@ -42,7 +42,7 @@ public class ConfissaoAdapter extends RecyclerView.Adapter<ConfissaoAdapter.Conf
         final Confissao confissao = confissaoArrayList.get(posicao);
         final AppDatabase appDatabase = AppDatabase.getInstance(context);
 
-        confissaoViewHolder.textViewUserName.setText(confissao.getUserID());
+        confissaoViewHolder.textViewUserName.setText(confissao.getUserName());
         confissaoViewHolder.textViewConfissao.setText(confissao.getTexto());
         confissaoViewHolder.textViewData.setText(confissao.getData());
         confissaoViewHolder.textViewHora.setText(confissao.getHora());
@@ -58,7 +58,7 @@ public class ConfissaoAdapter extends RecyclerView.Adapter<ConfissaoAdapter.Conf
                         context.startActivity(new Intent(context, ContainerActivity.class));
                         ((Activity)context).finish();
                     }
-                }).setNegativeButton("Não", null).setMessage("Deseja excluir?").show();
+                }).setNegativeButton("Não", null).setMessage("Deseja mesmo excluir?").show();
             }
         });
     }

@@ -37,17 +37,13 @@ public class NovaConfissao extends AppCompatActivity {
             public void onClick(View v) {
                 String texto = editTextConfissoa.getText().toString();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                String userId = firebaseAuth.getCurrentUser().getEmail();
+                String userName = firebaseAuth.getCurrentUser().getDisplayName();
 
                 String data = pegarData();
                 String hora = pegarHora();
 
                 if (!texto.isEmpty()){
-                    Confissao confissao = new Confissao();
-                    confissao.setTexto(texto);
-                    confissao.setData(data);
-                    confissao.setHora(hora);
-                    confissao.setUserID(userId);
+                    Confissao confissao = new Confissao(texto, data, hora, userName);
                     salvarConfissao(confissao);
                     finish();
                 } else {
