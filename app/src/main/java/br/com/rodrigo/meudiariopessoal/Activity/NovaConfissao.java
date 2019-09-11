@@ -1,5 +1,6 @@
 package br.com.rodrigo.meudiariopessoal.Activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,17 +8,26 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
+import br.com.rodrigo.meudiariopessoal.Config.ConfigFireBase;
 import br.com.rodrigo.meudiariopessoal.DAO.AppDatabase;
+import br.com.rodrigo.meudiariopessoal.Helper.Base64Helper;
 import br.com.rodrigo.meudiariopessoal.Model.Confissao;
+import br.com.rodrigo.meudiariopessoal.Model.User;
 import br.com.rodrigo.meudiariopessoal.R;
 
 public class NovaConfissao extends AppCompatActivity {
 
     private Button buttonSalvarConfissoa;
     private EditText editTextConfissoa;
+
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +46,15 @@ public class NovaConfissao extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String texto = editTextConfissoa.getText().toString();
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                String userName = firebaseAuth.getCurrentUser().getDisplayName();
+
+                String userEmail = firebaseAuth.getCurrentUser().getEmail();
+                String userName = firebaseAuth.getCurrentUser().getUid();
 
                 String data = pegarData();
                 String hora = pegarHora();
 
                 if (!texto.isEmpty()){
-                    Confissao confissao = new Confissao(texto, data, hora, userName);
+                    Confissao confissao = new Confissao(texto, data, hora, userName, userEmail);
                     salvarConfissao(confissao);
                     finish();
                 } else {
@@ -76,4 +87,5 @@ public class NovaConfissao extends AppCompatActivity {
         String horario = String.format("%02d", hora) + ":" + String.format("%02d", minuto);
         return horario;
     }
+
 }

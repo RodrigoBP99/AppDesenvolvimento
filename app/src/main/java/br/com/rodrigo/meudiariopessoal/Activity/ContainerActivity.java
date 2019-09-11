@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class ContainerActivity extends AppCompatActivity {
     private void logOut(){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
+        LoginManager.getInstance().logOut();
         finish();
         startActivity(new Intent(ContainerActivity.this, MainActivity.class));
     }
@@ -80,7 +82,7 @@ public class ContainerActivity extends AppCompatActivity {
         AppDatabase appDatabase = AppDatabase.getInstance(ContainerActivity.this);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        String userEmail = firebaseAuth.getCurrentUser().getDisplayName();
+        String userEmail = firebaseAuth.getCurrentUser().getEmail();
 
         confissaos = (ArrayList<Confissao>) appDatabase.confissaoDao().getConfissao(userEmail);
         confissaoAdapter = new ConfissaoAdapter(confissaos, this);

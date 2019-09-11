@@ -24,24 +24,29 @@ public class Confissao {
     @ColumnInfo(name = "confissao_hora")
     private String hora;
 
-    @ColumnInfo(name = "confissao_userID")
+    @ColumnInfo(name = "confissao_userName")
     private String userName;
 
+    @ColumnInfo(name = "confissao_userEmail")
+    private String userEmail;
 
-    public Confissao(int id, String texto, String data, String hora, String userName) {
+
+    public Confissao(int id, String texto, String data, String hora, String userName, String userEmail) {
         this.id = id;
         this.texto = texto;
         this.data = data;
         this.hora = hora;
         this.userName = userName;
+        this.userEmail = userEmail;
     }
 
     @Ignore
-    public Confissao(String texto, String data, String hora, String userName) {
+    public Confissao(String texto, String data, String hora, String userName, String userEmail) {
         this.texto = texto;
         this.data = data;
         this.hora = hora;
         this.userName = userName;
+        this.userEmail = userEmail;
     }
 
     public int getId() {
@@ -82,5 +87,13 @@ public class Confissao {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
